@@ -1,0 +1,110 @@
+﻿
+{% extends 'base.html' %}
+
+{% block content %}
+    <section class="cart-total-page spad">
+        <div class="container">
+          
+           <div><table><tr><td>		
+		<spam><a  href="{% url 'add_Ala' %}"><img src="/media/images/leito64.png" alt=""  style="align:center"/>
+							Novo Leito
+						</a>	</td><td>	
+		<a href="{% url 'novo_paciente' %}"><img src="/media/images/man64.png" alt=""  style="align:center"/>
+							Novo Paciente
+						</a></spam></td>
+<td>	
+		<a href="{% url 'novo_internacao' %}"><img src="/media/images/doente64.png" alt=""  style="align:center"/>
+							Nova Internação
+						</a></spam>
+						</td>
+
+<td>	
+		<a href="{% url 'add_Ala' %}"><img src="/media/images/procurando64.png" alt=""  style="align:center"/>
+							Procurar
+						</a></spam>
+						</td>
+
+<td>	
+		<a href="{% url 'boletim' %}"><img src="/media/images/boletim64.png" alt=""  style="align:center"/>
+							Boletim
+						</td>
+
+
+<td>	
+		<a href="{% url 'add_Ala' %}"><img src="/media/images/alta64.png" alt=""  style="align:center"/>
+							Alta
+						</a></spam>
+						</td>
+
+
+
+
+
+</tr>
+<div>	
+ <div style="align:center"> <h1> Painel de Internação</h1></div>
+<div>		
+                   <section class="features-section spad">
+                    
+                     <div>
+                         <table border="2">
+                             <thead> <h3>Lista de Internação </h3></thead>
+                             <thead> <h3>   Clínico: {{ clinico }} </h3></thead>
+                             <thead> <h3>  Cirúrgico: {{ cirurgico }}</h3></thead>
+                             <tr style="background-color:#2F4F4F">
+                                 <th>Leito</th>
+                                 <th>Paciente</th>
+                                 <th>Data de Internacação</th>
+                                 <th>Médico</th>
+                                 <th>Situação</th>
+                                 <th>Dieta</th>
+                                 <th>Convênio</th>
+                                 <th>Observação</th>                                 
+                                 <th>Mover</th>
+                                 <th>Alta</th>
+                                 <th>Reservar</th>
+                             </tr>
+                             {% for internado in internados %}
+			     
+
+                             <tr {% if internado.cor == 'AZUL' %} style="background-color:#000080;">
+                                 {% elif internado.cor == 'VERDE' %} style="background-color:#006400;" >
+                                 {% elif internado.cor == 'VERMELHO' %} style="background-color:#800000;" >
+                                 {% elif internado.cor == 'LARANJA' %} style="background-color:	#551A8B" >
+                                 {% else  %} style="background-color:#1C1C1C;" >{% endif %}
+
+
+                                 <td>{{ internado.ala }}-{{ internado.leito }}</td>
+				 <td>{% for inter in inters %} {% if inter.ala_leito.ala == internado.ala and inter.ala_leito.leito == internado.leito %} {{ inter.paciente.nome }}  {% endif %}  {% endfor %} </td>
+				  <td>{% for inter in inters %} {% if inter.ala_leito.ala == internado.ala and inter.ala_leito.leito == internado.leito %} {{ inter.data_entrada }}  {% endif %}  {% endfor %} </td>
+				 <td>{% for inter in inters %} {% if inter.ala_leito.ala == internado.ala and inter.ala_leito.leito == internado.leito %} {{ inter.medico }}  {% endif %}  {% endfor %}</td>
+				 <td>{{ internado.situacao }}</td>
+				 <td>{% for inter in inters %} {% if inter.ala_leito.ala == internado.ala and inter.ala_leito.leito == internado.leito %} {{ inter.dieta }}  {% endif %}  {% endfor %}</td>
+				 <td>{% for inter in inters %} {% if inter.ala_leito.ala == internado.ala and inter.ala_leito.leito == internado.leito %} {{ inter.paciente.convenio }}  {% endif %}  {% endfor %}</td>
+				 <td>{% for inter in inters %} {% if inter.ala_leito.ala == internado.ala and inter.ala_leito.leito == internado.leito %} {{ inter.observacao }}  {% endif %}  {% endfor %}</td>
+                                
+                                                 <td> {% for inter in inters %}
+                                                  {% if inter.ala_leito.ala == internado.ala and inter.ala_leito.leito == internado.leito %} 
+                                                  <a href="{% url 'mover_internacao' inter.id %}"> <img src="/media/images/troca.png"></a> 
+                                                  {% endif %}  {% endfor %}
+                                 </td>
+                                 <td> {% for inter in inters %} {% if  inter.ala_leito.ala == internado.ala and inter.ala_leito.leito == internado.leito  %} <a href="{% url 'alta_internacao' inter.id %}"> <img src="/media/images/alta16.png"></a> {% endif %}  {% endfor %}
+                                 </td>
+                               <td>
+                                  {% if internado.situacao == 'LIVRE' %}  <a href="{% url 'reservar_leito' internado.id %}"><img src="/media/images/reservado.png"></a>
+                                  {% elif internado.situacao == 'RESERVADO' %}<a href="{% url 'cancelar_reserva' internado.id %}"> <img src="/media/images/alta16.png">{% else %}
+                                   </a> 
+                                   
+                                  {% endif %}  </td>
+                                
+                                
+                             </tr>
+					
+                             {% endfor %}
+                         </table>
+                     </div>
+                       </section>
+        </div>
+    </section>
+{% endblock %}
+

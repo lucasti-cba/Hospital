@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <section class="cart-total-page spad">
+        <div class="container">
+           <div> <h1> Cronograma de Atendimento </h1></div>
+           <div class="row">  <section class="features-section spad">
+        <div class="features-ads">
+            {% if queryi != None %}
+            <div class="container">
+              <h3>Atendimento sendo Realizados.</h3><br><br><br>
+                  <table border="0">
+                <tr ><th width="40" height="40" ><h4> Nº Ordem </h4></th><th width="40" height="40"><h4> Iniciado em </h4></th><th width="40" height="40"><h4>Tempo total de atendimento</h4> </th><th width="101" height="40"><h4>Setor</h4></th><th width="101" height="40"><h4> Atendente</h4></th></tr><tr></tr>
+              {% for ordem in queryi %}
+              <tr   style ="color: black ; background-color: #B0E0E6" >
+                <td>  <a href="{% url 'vis_ordemManu' ordem.id ordem.tipo %}"> Nº {{ ordem.id }} </a> </td>
+                <td>  {{ ordem.data_concluida|slice:"11:16"}}  </td>
+                <td>  {{ ordem.tempo_atendimento }} minutos  </td> <td> {{ ordem.setor }} </td> 
+                <td>  {{ ordem.atendente }}  </td>
+                
+                  {% if perms.app.change_ordem_manu_terceiri and ordem.tipo == 'Equipamentos Tercerizados' %} 
+                  <td width="40" height="40"> 
+                   <form action="{% url 'ordemManu_paus' ordem.id ordem.tipo  %}" >                
+                    <input type="submit" style="background-color: red; color: white" class="primary-btn pc-btn" value="Pausar">
+                     </form>
+                   </td>
+                     <td  width="40" height="40"> 
+                      <form action="{% url 'ordemManu_edit' ordem.id ordem.tipo %}" > 
+                       <input type="submit" style="background-color: blue; color: white" class="primary-btn pc-btn" value="Editar">
+                        </form>
+                      </td>
+                     <td  width="40" height="40"> 
+                      <form action="{% url 'ordemManu_fim' ordem.id ordem.tipo  %}" >
+                      <input type="submit" style="background-color: green; color: white" class="primary-btn pc-btn" value="Finalizar">
+                       </form>
+                     </td>
+                {% endif %} 
+                                  {% if perms.app.change_ordem_manu_predial and ordem.tipo == 'Predial - Eletrica - Hidraulica' %} 
+                  <td width="40" height="40"> 
+                   <form action="{% url 'ordemManu_paus' ordem.id ordem.tipo  %}" >                
+                    <input type="submit" style="background-color: red; color: white" class="primary-btn pc-btn" value="Pausar">
+                     </form>
+                   </td>
+                     <td  width="40" height="40"> 
+                      <form action="{% url 'ordemManu_edit' ordem.id ordem.tipo %}" > 
+                       <input type="submit" style="background-color: blue; color: white" class="primary-btn pc-btn" value="Editar">
+                        </form>
+                      </td>
+                     <td  width="40" height="40"> 
+                      <form action="{% url 'ordemManu_fim' ordem.id ordem.tipo  %}" >
+                      <input type="submit" style="background-color: green; color: white" class="primary-btn pc-btn" value="Finalizar">
+                       </form>
+                     </td>
+                {% endif %}      
+                                  {% if perms.app.change_ordem_manu_arcond and ordem.tipo == 'Ar Condicionado' %} 
+                  <td width="40" height="40"> 
+                   <form action="{% url 'ordemManu_paus' ordem.id ordem.tipo  %}" >                
+                    <input type="submit" style="background-color: red; color: white" class="primary-btn pc-btn" value="Pausar">
+                     </form>
+                   </td>
+                     <td  width="40" height="40"> 
+                      <form action="{% url 'ordemManu_edit' ordem.id ordem.tipo %}" > 
+                       <input type="submit" style="background-color: blue; color: white" class="primary-btn pc-btn" value="Editar">
+                        </form>
+                      </td>
+                     <td  width="40" height="40"> 
+                      <form action="{% url 'ordemManu_fim' ordem.id ordem.tipo  %}" >
+                      <input type="submit" style="background-color: green; color: white" class="primary-btn pc-btn" value="Finalizar">
+                       </form>
+                     </td>
+                {% endif %}                    
+              </tr>                 
+              {% endfor %}
+            </table>
+<br><br><br><br><br>
+            </div>
+            {% endif %}
+            <div class="container">
+              <table border="0px" style="border-color: white" >
+                <h3> Atendimentos a espera de atendimento <h3><br>
+                <tr ><th width="40" height="40"> <h4>Nº Ordem</h4> </th><th width="40" height="40"> <h4>Data</h4></th><th width="40" height="40"><h4> Status</h4> </th><th width="40" height="40"><h4>Setor</h4></th><th width="40" height="40"> <h4>Tipo</h4></th></tr>
+              {% for ordem in query2 %}{% if ordem.prioridade == 3 %}
+              <tr   style ="color: black ; background-color: #FA8072" >
+                <td>  <a href="{% url 'vis_ordemManu' ordem.id ordem.tipo %}"> Nº {{ ordem.id }} </a> </td>
+                <td>  {{ ordem.data_solcitada|slice:"8:10"}}/{{ ordem.data_solcitada|slice:"5:7"}}/{{ ordem.data_solcitada|slice:"0:4"}}  </td>
+                <td>  {{ ordem.status_ordem }}  </td> <td> {{ ordem.setor }} </td> 
+                <td>  {{ ordem.tipo }}  </td>                
+                  {% if perms.app.change_ordem_manu_terceiri %} 
+                  <td>  <form action="{% url 'ordemManu_ini' ordem.id ordem.tipo %}" ">                
+                    <input type="submit" style="background-color: green; color: white" class="primary-btn pc-btn" value="Iniciar Atendimento"> </form></td>
+                {% endif %}              
+              </tr>
+                 {% endif %}
+              {% endfor %}
+                           {% for ordem in query2 %}{% if ordem.prioridade == 2 %}
+              <tr   style ="color: black ; background-color: #FFA07A ">
+                <td>  <a href="{% url 'vis_ordemManu' ordem.id ordem.tipo %}"> Nº {{ ordem.id }} </a> </td>
+                <td>  {{ ordem.data_solcitada|slice:"8:10"}}/{{ ordem.data_solcitada|slice:"5:7"}}/{{ ordem.data_solcitada|slice:"0:4"}}  </td>
+                <td>  {{ ordem.status_ordem }}  </td> <td> {{ ordem.setor }} </td> 
+                <td>  {{ ordem.tipo }}  </td>                
+                  {% if perms.app.change_ordem_manu_terceiri %} 
+                  <td> <form action="{% url 'ordemManu_ini' ordem.id ordem.tipo  %}" ">                
+                    <input type="submit" style="background-color: green; color: white" class="primary-btn pc-btn" value="Iniciar Atendimento"> </form></td>
+                {% endif %}
+              </tr>
+                 {% endif %}
+              {% endfor %}
+                           {% for ordem in query2 %}{% if ordem.prioridade == 1 %}
+              <tr   style =" color: black ; background-color: #90EE90 ">
+                <td>  <a href="{% url 'vis_ordemManu' ordem.id ordem.tipo %}"> Nº {{ ordem.id }} </a> </td>
+                <td>  {{ ordem.data_solcitada|slice:"8:10"}}/{{ ordem.data_solcitada|slice:"5:7"}}/{{ ordem.data_solcitada|slice:"0:4"}}  </td>
+                <td>  {{ ordem.status_ordem }}  </td> <td> {{ ordem.setor }} </td> 
+                <td>  {{ ordem.tipo }}  </td>                
+                  {% if perms.app.change_ordem_manu_terceiri %} 
+                  <td>  <form action="{% url 'ordemManu_ini' ordem.id ordem.tipo  %}" ">
+                <input type="submit" style="background-color: green; color: white" class="primary-btn pc-btn" value="Iniciar Atendimento"> </form></td>
+                {% endif %}
+              </tr>
+                 {% endif %}
+              {% endfor %}
+
+                            {% for ordem in query1 %}{% if ordem.prioridade == 3 %}
+              <tr   style ="color: black ; background-color: #FA8072" >
+                <td>  <a href="{% url 'vis_ordemManu' ordem.id ordem.tipo %}"> Nº {{ ordem.id }} </a> </td>
+                <td>  {{ ordem.data_solcitada|slice:"8:10"}}/{{ ordem.data_solcitada|slice:"5:7"}}/{{ ordem.data_solcitada|slice:"0:4"}}  </td>
+                <td>  {{ ordem.status_ordem }}  </td> <td> {{ ordem.setor }} </td> 
+                <td>  {{ ordem.tipo }}  </td>                
+                  {% if perms.app.change_ordem_manu_predial %} 
+                  <td>  <form action="{% url 'ordemManu_ini' ordem.id ordem.tipo %}" ">                
+                    <input type="submit" style="background-color: green; color: white" class="primary-btn pc-btn" value="Iniciar Atendimento"> </form></td>
+                {% endif %}              
+              </tr>
+                 {% endif %}
+              {% endfor %}
+                           {% for ordem in query1 %}{% if ordem.prioridade == 2 %}
+              <tr   style ="color: black ; background-color: #FFA07A ">
+                <td>  <a href="{% url 'vis_ordemManu' ordem.id ordem.tipo %}"> Nº {{ ordem.id }} </a> </td>
+                <td>  {{ ordem.data_solcitada|slice:"8:10"}}/{{ ordem.data_solcitada|slice:"5:7"}}/{{ ordem.data_solcitada|slice:"0:4"}}  </td>
+                <td>  {{ ordem.status_ordem }}  </td> <td> {{ ordem.setor }} </td> 
+                <td>  {{ ordem.tipo }}  </td>                
+                  {% if perms.app.change_ordem_manu_predial %} 
+                  <td> <form action="{% url 'ordemManu_ini' ordem.id ordem.tipo  %}" ">                
+                    <input type="submit" style="background-color: green; color: white" class="primary-btn pc-btn" value="Iniciar Atendimento"> </form></td>
+                {% endif %}
+              </tr>
+                 {% endif %}
+              {% endfor %}
+                           {% for ordem in query1 %}{% if ordem.prioridade == 1 %}
+              <tr   style =" color: black ; background-color: #90EE90 ">
+                <td>  <a href="{% url 'vis_ordemManu' ordem.id ordem.tipo %}"> Nº {{ ordem.id }} </a> </td>
+                <td>  {{ ordem.data_solcitada|slice:"8:10"}}/{{ ordem.data_solcitada|slice:"5:7"}}/{{ ordem.data_solcitada|slice:"0:4"}}  </td>
+                <td>  {{ ordem.status_ordem }}  </td> <td> {{ ordem.setor }} </td> 
+                <td>  {{ ordem.tipo }}  </td>                
+                  {% if perms.app.change_ordem_manu_predial %} 
+                  <td>  <form action="{% url 'ordemManu_ini' ordem.id ordem.tipo  %}" ">
+                <input type="submit" style="background-color: green; color: white" class="primary-btn pc-btn" value="Iniciar Atendimento"> </form></td>
+                {% endif %}
+              </tr>
+                 {% endif %}
+              {% endfor %}
+
+
+                            {% for ordem in query3 %}{% if ordem.prioridade == 3 %}
+              <tr   style ="color: black ; background-color: #FA8072" >
+                <td>  <a href="{% url 'vis_ordemManu' ordem.id ordem.tipo %}"> Nº {{ ordem.id }} </a> </td>
+                <td>  {{ ordem.data_solcitada|slice:"8:10"}}/{{ ordem.data_solcitada|slice:"5:7"}}/{{ ordem.data_solcitada|slice:"0:4"}}  </td>
+                <td>  {{ ordem.status_ordem }}  </td> <td> {{ ordem.setor }} </td> 
+                <td>  {{ ordem.tipo }}  </td>                
+                  {% if perms.app.change_ordem_manu_arcond %} 
+                  <td>  <form action="{% url 'ordemManu_ini' ordem.id ordem.tipo %}" ">                
+                    <input type="submit" style="background-color: green; color: white" class="primary-btn pc-btn" value="Iniciar Atendimento"> </form></td>
+                {% endif %}              
+              </tr>
+                 {% endif %}
+              {% endfor %}
+                           {% for ordem in query3 %}{% if ordem.prioridade == 2 %}
+              <tr   style ="color: black ; background-color: #FFA07A ">
+                <td>  <a href="{% url 'vis_ordemManu' ordem.id ordem.tipo %}"> Nº {{ ordem.id }} </a> </td>
+                <td>  {{ ordem.data_solcitada|slice:"8:10"}}/{{ ordem.data_solcitada|slice:"5:7"}}/{{ ordem.data_solcitada|slice:"0:4"}}  </td>
+                <td>  {{ ordem.status_ordem }}  </td> <td> {{ ordem.setor }} </td> 
+                <td>  {{ ordem.tipo }}  </td>                
+                  {% if perms.app.change_ordem_manu_arcond %} 
+                  <td> <form action="{% url 'ordemManu_ini' ordem.id ordem.tipo  %}" ">                
+                    <input type="submit" style="background-color: green; color: white" class="primary-btn pc-btn" value="Iniciar Atendimento"> </form></td>
+                {% endif %}
+              </tr>
+                 {% endif %}
+              {% endfor %}
+                           {% for ordem in query3 %}{% if ordem.prioridade == 1 %}
+              <tr   style =" color: black ; background-color: #90EE90 ">
+                <td>  <a href="{% url 'vis_ordemManu' ordem.id ordem.tipo %}"> Nº {{ ordem.id }} </a> </td>
+                <td>  {{ ordem.data_solcitada|slice:"8:10"}}/{{ ordem.data_solcitada|slice:"5:7"}}/{{ ordem.data_solcitada|slice:"0:4"}}  </td>
+                <td>  {{ ordem.status_ordem }}  </td> <td> {{ ordem.setor }} </td> 
+                <td>  {{ ordem.tipo }}  </td>                
+                  {% if perms.app.change_ordem_manu_arcond %} 
+                  <td>  <form action="{% url 'ordemManu_ini' ordem.id ordem.tipo  %}" ">
+                <input type="submit" style="background-color: green; color: white" class="primary-btn pc-btn" value="Iniciar Atendimento"> </form></td>
+                {% endif %}
+              </tr>
+                 {% endif %}
+              {% endfor %}
+            </table>
+            </div>
+            </div>
+              </div>
+           </div>
+        </div>
+    </section>
+    <script>
+function alertar()
+{
+var x;
+var r=confirm("Deseja mesmo apagar essa Ordem de Serviço?");
+if (r==true)
+  {
+  x="Produto apagado";
+  }
+ else
+ {
+    return false;
+ }
+document.getElementById("demo").innerHTML=x;
+}
+</script>
+   {% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <section class="cart-total-page spad">
+        <div class="container">
+           <div> <h1> Centro Cirurgico</h1></div>
+          	 <div class="row">
+          		 <section class="features-section spad">
+           			<div>
+                  <form  class="checkout-form" action="{% url 'addCirurgia' %}" method="POST">{% csrf_token %}
+                       <tr><th><label for="id_paciente">Paciente:</label></th><td><input type="text" name="paciente" maxlength="250" value="{{ cirurgia.paciente }}" required id="id_paciente"></td></tr>
+                        <tr><th><label for="id_medico">Médico:</label></th><td><input type="text" name="medico" maxlength="250"  value="{{ cirurgia.medico }}" required id="id_medico"></td></tr>
+                        <tr><th><label for="id_procedimento">Procedimento:</label></th><td><input type="text" name="procedimento"  value="{{ cirurgia.procedimento }}" maxlength="250" required id="id_procedimento"></td></tr>
+                        <tr><th><label for="id_sala">Sala:</label></th><td><select name="sala" id="id_sala" value="{{ cirurgia.sala }}">
+                          <option value="SALA 01">SALA 01</option>
+
+                          <option value="SALA 02">SALA 02</option>
+
+                          <option value="SALA 03">SALA 03</option>
+
+                          <option value="SALA 04">SALA 04</option>
+
+</select></td></tr>
+<tr><th><label for="id_convenio">Convenio:</label></th><td><input type="text" name="convenio" maxlength="250" value="{{ cirurgia.convenio }}" required id="id_convenio"></td></tr>
+<tr><th><label for="id_data">Data:</label></th><td><input type="text" name="data" value="{{ cirurgia.data }}"required id="id_data"></td></tr>
+<tr><th><label for="id_hora">Hora:</label></th><td><input type="text" name="hora" value="{{ cirurgia.hora }}"required id="id_hora"></td></tr>
+                       <button type="submit" style="background-color: Transparent; border: none;"  > <img src="/media/icons/cirurgia.png" align="right" ></button>
+                       </form>
+
+
+
+           			</div>
+        		</section>
+           </div>
+        </div>
+    </section>
+{% endblock %}

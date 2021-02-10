@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <section class="cart-total-page spad">
+        <div class="container">
+           <div> <h1> Ordens TI Abertas</h1></div>
+           <div class="row">  <section class="features-section spad">
+        <div class="features-ads">
+            <div class="container">
+              <table border="0">
+                <tr ><th> Nº Ordem </th><th> Data</th><th> Solicitante </th><th>Setor</th><th> Tipo</th></tr>
+              {% for ordem in query %}
+              <tr   style ="
+
+                        {% if ordem.prioridade == 1 %} color: black ; background-color: #90EE90  
+                        {% elif ordem.prioridade == 2 %} color: black ; background-color: #FFA07A  
+                        {% elif ordem.prioridade == 3 %} color: black ; background-color: #FA8072
+                        {% else %} color: black; background-color: #B0E0E6;                    {% endif %}
+
+                        "
+              >
+                <td>  <a href="{% url 'vis_ordemti' ordem.id %}"> Nº {{ ordem.id }} </a> </td>
+                <td>  {{ ordem.data_solcitada|slice:"8:10"}}/{{ ordem.data_solcitada|slice:"5:7"}}/{{ ordem.data_solcitada|slice:"0:4"}}  </td>
+                <td>  {{ ordem.solicitante }}  </td> <td> {{ ordem.setor }} </td> 
+                <td>  {{ ordem.tipo }}  </td>
+                
+                  {% if perms.app.change_ordem_ti %} 
+                  <td>  <form action="{% url 'edit_pri_ordemti' ordem.id  %}"  method="post">
+                {% csrf_token %}
+
+                      <label for="id_prioridade">
+                        {% if ordem.prioridade == 1 %} Sem prioridade  {% endif %}
+                        {% if ordem.prioridade == 2 %} Urgente {% endif %}
+                        {% if ordem.prioridade == 3 %} Emergencial 
+                      {% endif %}</label><select name="prioridade" required id="id_prioridade" >
+                            <option value=1>Sem prioriadade</option>
+                            <option value=2>Urgente</option>
+                            <option value=3>Emergencial</option>                           
+                          </select></td><td>
+
+                    <input type="submit" style="background-color: green; color: white" class="primary-btn pc-btn" value="Salvar"> </form></td>
+                {% endif %}
+
+              {% if perms.app.delete_ordem_ti %}<td>
+                <form action="{% url 'del_ordemti' ordem.id %}" method="POST">
+                            {% csrf_token %}
+                        <input type="submit" onclick="return alertar()" style="background-color: red; color: white" class="primary-btn pc-btn" value="Apagar">
+                        </form>
+                 
+                   </td>
+                  {% endif %} 
+
+
+
+
+
+              </tr>
+                 
+              {% endfor %}
+            </table>
+            </div>
+            </div>
+              </div>
+           </div>
+        </div>
+    </section>
+    <script>
+function alertar()
+{
+var x;
+var r=confirm("Deseja mesmo apagar essa Ordem de Serviço?");
+if (r==true)
+  {
+  x="Produto apagado";
+  }
+ else
+ {
+    return false;
+ }
+document.getElementById("demo").innerHTML=x;
+}
+
+
+</script>
+   {% endblock %}

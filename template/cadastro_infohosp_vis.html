@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <section class="cart-total-page spad">
+ 	 <div class="container">
+ <label>Nome: {{ cadastro.nome }}</label><br>
+  <label>Data de Nascimento:{{ cadastro.nascimento }}</label><br>
+ <label>CPF: {{ cadastro.cpf }}</label><br>
+ <label> Rua:{{ cadastro.rua }}</label><br>
+ <label>Bairro: {{ cadastro.bairro }}</label><br>
+ <label>Cidade: {{ cadastro.cidade }}</label><br>
+ <label>CEP: {{ cadastro.CEP }}</label><br>
+ <label>Medico: {{ cadastro.medico }}</label><br>
+ <label>CRM TIPO: {{ cadastro.crm_tipo }}</label><br>
+ <label>CRM Numero: {{ cadastro.crm_numero }}</label><br>
+ <label>CRM Especialização {{ cadastro.crm_espec }}</label><br>
+ <label>Consultorio: {{ cadastro.consultorio }}</label>
+</div></section>
+
+{% endblock %}

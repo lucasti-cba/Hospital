@@ -1,0 +1,110 @@
+﻿<html>
+<head><title>{{title}}</title>
+{% load static %}</head>
+<div id="printable">
+    <body>
+        <table border="2">
+            <thead>
+                <tr>
+                    <th colspan="2"><img src="{% static "/media/logo.png" %}" alt=""></th>
+                    <th colspan="2">
+                        <h1>Ordem de Serviço</h1>
+                    </th>
+                </tr>
+            </thead>
+
+            <tfoot>
+                <tr>
+                    <td colspan="2">
+                        <h5>
+                            Assinatura Atendente<h5>
+
+                                _________________________<br>{{ ordem.atendente}}
+
+
+                    </td>
+
+                    <td colspan="2">
+                        <h5>
+                            Assinatura Solicitante<h5>
+
+                                _________________________<br>{{ ordem.solicitante}}
+
+
+                    </td>
+                </tr>
+
+            </tfoot>
+            <tr>
+                <td>
+                    <h2>Nº {{ ordem.id }} </h2>
+                </td>
+                <td>
+                    <h3>    Prioridade </h3> {% if ordem.prioridade == 1 %} Sem prioridade {% elif ordem.prioridade == 2 %} Urgente{% elif ordem.prioridade == 3 %} Emergencial {% endif %}
+                </td>
+
+                <td>
+                    <h3> Solicitante:</h3> {{ ordem.solicitante }}
+                </td>
+                <td>
+                    <h3> Setor: </h3> {{ ordem.setor }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h3> Atendente:</h3> {{ ordem.atendente }}
+                </td>
+                <td>
+                    <h3> Data de Solicitação: </h3> {{ ordem.data_solcitada|slice:"8:10"}}/{{ ordem.data_solcitada|slice:"5:7"}}/{{ ordem.data_solcitada|slice:"0:4"}}
+                </td>
+
+                <td>
+                    <h3> Data Atendida:</h3> {{ ordem.data_concluida|slice:"8:10"}}/{{ ordem.data_concluida|slice:"5:7"}}/{{ ordem.data_concluida|slice:"0:4"}}
+                </td>
+                <td>
+                    <h3> Horas Gastas: </h3> {{ ordem.tempo_atendimento }} Minutos
+                </td>
+            </tr>
+            <tr rowspan="4"><td colspan="4" style="text-orientation: center;"> <h2>Dados do Serviço</h2></td></tr>
+            <tr rowspan="4">
+                <td colspan="1">
+                    <h4> Tipo de chamado: </h4>{{ ordem.tipo }}
+                </td>
+                <td colspan="3">
+                    <h4> Descrição do chamado:</h4> {{ ordem.descricao|linebreaks  }}
+                </td>
+            </tr>
+            <tr>
+                </td>
+                <td colspan="4">
+                    <h4> Laudos:</h4> {{ ordem.laudos|linebreaks  }}
+                </td>
+            </tr>
+            <tr>
+                </td>
+                <td colspan="4">
+                    <h4> Serviço Realizado:</h4> {{ ordem.servico|linebreaks  }}
+                </td>
+            </tr>
+            <tr>
+                </td>
+                <td colspan="4">
+                    <h4>Lista de materiais:</h4> {{ ordem.materiais|linebreaks  }}
+                </td>
+            </tr>
+
+        </table>
+        <button id="print">Clique para imprimir</button>
+    </body>
+
+<script>
+        document.getElementById('print').onclick = function() {
+            var conteudo = document.getElementById('printable').innerHTML,
+                tela_impressao = window.open('about:blank');
+
+            tela_impressao.document.write(conteudo);
+            tela_impressao.window.print();
+            tela_impressao.window.close();
+        };
+</script>
+</html>

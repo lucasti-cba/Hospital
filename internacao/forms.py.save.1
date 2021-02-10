@@ -1,0 +1,31 @@
+from django import forms
+from .models import *
+import datetime
+
+
+
+class NovoLeito_Form(forms.Form):
+        ala =  forms.CharField(label='Ala', max_length=5)
+        leito =  forms.CharField(label='Leito', max_length=5)
+
+class NovoPaciente_Form(forms.Form):
+	nome = forms.CharField(label='Nome', max_length=50)
+	data_nascimento = forms.DateField(label='Data de Nascimento', widget = forms.SelectDateWidget(years=range( datetime.date.today().year - 130 , datetime.date.today().year ) ))
+	convenio = forms.CharField(label='Convênio', max_length=15)
+
+class NovoInternacaoForm(forms.ModelForm):
+    ## change the widget of the date field.
+    previsao_alta  = forms.DateField(label='Previsão de Alta?', widget=forms.SelectDateWidget())
+    
+def __init__(self, *args, **kwargs):
+        super(NovoInternacaoForm, self).__init__(*args, **kwargs)
+        ## add a "form-control" class to each form input
+        ## for enabling bootstrap
+        for name in self.fields.keys():
+            self.fields[name].widget.attrs.update({
+                'class': 'form-control',
+            })
+
+    class Meta:
+        model = Internacao_Paciente
+        fields = ("__all__")

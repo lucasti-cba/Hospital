@@ -1,0 +1,13 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <section class="cart-total-page spad">
+        <div class="container">
+           <div> <h1> Painel de Internação</h1></div>
+           <div><a href="{% url 'add_internacao' %}"  > <img src="/media/icons/internacao.png" align="left" ></a></div>
+                  <br><br><br><br><h2>Desculpe {{ ala }} - {{ leito }} já está ocupado, tente em outro leito disponivel.</h2>
+        </div>
+    </section>
+{% endblock %}
+

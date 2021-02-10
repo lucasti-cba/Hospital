@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+{{ exame.exame }} 
+
+
+<section class="cart-total-page spad">
+        <div class="container">
+           <div> <h1> Imprimir Etiquetas</h1></div>
+           <div class="row">  <section class="features-section spad">
+        <div class="features-ads">
+            <div class="container">
+              <h3>Exames.</h3><br><br><br>
+              <form  class="checkout-form" action="{% url 'unimagem' %}" method="POST">{% csrf_token %}
+              			
+                       {{ pesquisa.as_p }}
+                      <input type="submit" style="background-color:#00946B; color: white" class="primary-btn pc-btn" class="primary-btn pc-btn" type="submit" value="Pesquisar">
+                       </form>
+
+                  <table border="1">
+                <tr ><th width="40" height="40" ><h4> Codigo </h4></th><th width="40" height="40"><h4> Data </h4></th><th width="40" height="40"><h4>Nome</h4> </th><th width="101" height="40"><h4>Exame</h4></th><th width="101" height="40"><h4> Obs</h4></th><th width="40" height="40" ><h4> Imprimir </h4></th></tr><tr></tr>
+              {% for exame in exames %}
+              <tr   style ="color: black ; background-color: #B0E0E6" >
+                <td>  Nº {{ exame.codigo }}  </a> </td>
+                <td>  {{ exame.data }}   </td>
+                <td>  {{ exame.nome }} </td> 
+                <td> {{ exame.exame }}  </td> 
+                <td>  {{ ordem.obs }}  </td>
+                <td> <a href='{% url "printExame" exame.id %}'> <img src='/media/uniprint.png'> </a> </td> 
+              </tr>                 
+              {% endfor %}
+            </table>
+
+
+
+</div>
+</div>
+</section>
+                    {% endblock %}

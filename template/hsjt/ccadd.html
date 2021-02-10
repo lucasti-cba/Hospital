@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <section class="cart-total-page spad">
+        <div class="container">
+           <div> <h1> Centro Cirurgico</h1></div>
+          	 <div class="row">
+          		 <section class="features-section spad">
+           			<div><form  class="checkout-form" action="{% url 'addCirurgia' %}" method="POST">{% csrf_token %}
+                        {{ form.as_p }}
+                       <button type="submit" style="background-color: Transparent; border: none;"  > <img src="/media/icons/cirurgia.png" align="right" ></button>
+                       </form>
+
+
+
+           			</div>
+        		</section>
+           </div>
+        </div>
+    </section>
+{% endblock %}

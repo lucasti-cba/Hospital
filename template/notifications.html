@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+.balao {
+  border: 1px outset blue;
+  background-color: lightblue;
+  text-align: center;
+}
+</style>
+    <section class="cart-total-page spad">
+ 	 <div class="container">
+ 	 	<h3>Notificações</h3><br><br><a href="{% url 'delt_notifications' user.id %}"><input type="submit" style="background-color:red; color: white" class="primary-btn pc-btn" class="primary-btn pc-btn" value="Apagar todas" ></a><br><br>
+ 	 	{% for notification in notifications %}
+ 	 		<div class="balao"><label><b>{{ notification.mensagem }}</b></label></div><a href="{% url 'del_notifications' notification.id %}"><input type="submit" style="background-color:red; color: white" class="primary-btn pc-btn" class="primary-btn pc-btn" value="Apagar"></a><br><br>
+ 	 	{% endfor %}
+</div></section>
+
+{% endblock %}

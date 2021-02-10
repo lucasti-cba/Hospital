@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div class="contact-section">
+        <div class="container">
+            <div class="row">
+    <section class="cart-total-page spad">
+        <div class="container">
+                    <div class="col-lg-12">
+                        <h3>{{produto.nome}}</h3>
+                    </div>
+                    <div class="col-lg-9">
+                            <div class="col-lg-10">
+                                <br>
+                                <form action="{% url 'produto_tagadd' produto.id  %}" class="checkout-form" method="post">
+                                    {% csrf_token %}
+                                <h5>Adicionar tag</h5>
+                                <br>
+                                <div class="col-lg-10"> <div class="row">
+                            <div class="col-lg-4">
+                                <label for="id_tag"> Tag Nome:</p></label>
+                            </div>
+                            <div class="col-lg-10">
+                                <input type="text" name="tag" maxlength="30" id="id_tag" placeholder="TAG">
+                            </div>
+                 <input style="background-color:#A7B4B9; color: white" class="primary-btn pc-btn" type="submit" value="Adicionar Tag">
+                        </div>
+                                </div>
+                                </form>
+<div class="col-lg-10"><br>
+
+Tags : {% for tag in tags%} {{ tag.tag}} <form action="{% url 'tag_delete' tag.id  produto.id %}" method="POST">
+                            {% csrf_token %}
+                        <input type="submit" style="background-color: red; color: white" class="primary-btn pc-btn" value="Apagar">
+                        </form><br>{% endfor %}
+</div></div>
+
+            </div>
+        </div>
+    </section>
+            </div>
+        </div>
+</div>
+
+{% endblock%}

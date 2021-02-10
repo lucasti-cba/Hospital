@@ -1,0 +1,68 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <section class="cart-total-page spad">
+        <div class="container">
+           <div> <h1> Painel de Internação</h1></div>
+           <div><a href="{% url 'add_internacao' %}"  > <img src="/media/icons/internacao.png" align="left" ></a>  <p><a href="{% url 'internacaoV' %}"> <img src="/media/icons/imac.png" align="left"></a></div>
+                   <section class="features-section spad">
+                    
+                     <div>
+                         <table border="2">
+                             <thead> <h3>Lista de Internação </h3></thead>
+                             <thead> <h3>   Clínico: {{ clinico }} </h3></thead>
+                             <thead> <h3>  Cirúrgico: {{ cirurgico }}</h3></thead>
+                             <tr style="background-color:#FFA07A">
+                                 <th>Leito</th>
+                                 <th>Paciente</th>
+                                 <th>Médico</th>
+                                 <th>Situação</th>
+                                 <th>Dieta</th>
+                                 <th>Convênio</th>
+                                 <th>Observação</th>
+                                 <th>Cor</th>
+                                 <th>Editar</th>
+                                 <th>Apagar</th>
+                                 <th>Livre</th>
+                                 <th>Reservar</th>
+                             </tr>
+                             {% for internado in internados %}
+
+                             <tr {% if internado.cor == 'AZUL' %} style="background-color:#00BFFF;">
+                                 {% elif internado.cor == 'VERDE' %} style="background-color:#00FF7F;" >
+                                 {% elif internado.cor == 'VERMELHO' %} style="background-color:#FF6A6A;" >
+                                 {% elif internado.cor == 'LARANJA' %} style="background-color:#FF8C00;" >
+                                 {% else  %} style="background-color:#DCDCDC;" >{% endif %}
+
+
+                                 <td>{{ internado.ala }}-{{ internado.leito }}</td>
+                                 <td>{{ internado.nome }}</td>
+                                 <td>{{ internado.medico }}</td>
+                                 <td>{{ internado.situacao }}</td>
+                                 <td>{{ internado.dieta }}</td>
+                                 <td>{{ internado.convenio }}</td>
+                                 <td>{{ internado.observacao }}</td>
+                                 <td>
+                                     <form class="checkout-form" action="{% url 'colorPI' internado.id %}" method="POST">
+                                         {% csrf_token %}
+                                         {{ form.as_p }}
+                                         <input type="submit" style="background-color:#00946B; color: white" class="primary-btn pc-btn" class="primary-btn pc-btn" type="submit" value="Mudar">
+                                     </form>
+                                 </td>
+                                 <td> <a href="{% url 'edit_internacao' internado.id %}"> EDITAR<img src="/media/icons/lapis.png"></a></td>
+                                 <td> <a href="{% url 'delete_internacao' internado.id %}">APAGAR <img src="/media/icons/lixo.png"></a></td>
+
+
+                                 <td> <a href="{% url 'livre_internacao' internado.id %}">LIVRE <img src="/media/icons/exit.png"></a></td>
+                                 <td> <a href="{% url 'reservado_internacao' internado.id %}">RESERVADO <img src="/media/icons/reserva.png"></a></td>
+                             </tr>
+
+                             {% endfor %}
+                         </table>
+                     </div>
+                       </section>
+        </div>
+    </section>
+{% endblock %}
+

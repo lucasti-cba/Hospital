@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="col">
+    <table>
+        <thead>Lista de Senhas</thead>
+
+        <tbody><tr><th>Senha</th><th>Tipo</th><th>Paciente</th><th>Chamar</th></tr>
+        {% for senha in senhas %}
+    <tr><td>
+    {{ senha.senha }}
+    </td>
+        <td>{{ senha.preferencial }}
+    </td>
+    <td>{% for paciente in esperando %}{% if paciente.senha.id == senha.id %}
+        {{ paciente.nome }} {% endif %}{% endfor %}
+    </td>
+        <td>
+            <a href="{% url 'atenderPacienteC' senha.id %}"><img src="/media/icons/play.png"></a>
+              </td>
+    </tr>
+    {% endfor %}
+</tbody>
+    </table>
+
+	</div>
+
+
+                    {% endblock %}

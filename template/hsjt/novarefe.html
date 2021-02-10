@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <section class="cart-total-page spad">
+        <div class="container">
+           <div> <h1> {{ cardapio.title }} - {{ cardapio.data }}</h1></div><br><br>
+           <div class="row"> 
+                               <form action="" method="post" enctype="multipart/form-data" class="checkout-form">{% csrf_token %}
+                        {% csrf_token %}
+                        <div class="row"><div class="col-lg-2">
+                                <label for="id_alimento">Alimento:</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <input type="text" name="alimento" maxlength="50" required id="id_alimento" placeholder="Alimento" >
+                            </div>
+                       
+
+                        <br>
+                        <input type="submit" style="background-color:#00946B; color: white" class="primary-btn pc-btn" class="primary-btn pc-btn" type="submit" value="Adicionar Alimento">
+                    </form>
+                    <br><br><br>
+
+           </div>
+                    <ul>
+                    {% for alimento in cardapio.alimentos.all %}
+                    	<li><h6>{{ alimento.nome }}</h6></li><a href="{% url 'delete_ali' cardapio.id alimento.id %}"><button>Remover</button></a>
+                    {% endfor%}
+                	</ul>
+        </div>
+    </section>
+   {% endblock %}

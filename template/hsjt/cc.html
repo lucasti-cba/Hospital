@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <section class="cart-total-page spad">
+        <div class="container">
+           <div> <h1> Centro Cirurgico</h1></div>
+          	 <div class="row">
+          		 <section class="features-section spad">
+           			<div>   <div><form  class="checkout-form" action="{% url 'painelcc' %}" method="POST">{% csrf_token %}
+                       {{ pesquisa.as_p }}
+                      <input type="submit" style="background-color:#00946B; color: white" class="primary-btn pc-btn" class="primary-btn pc-btn" type="submit" value="Pesquisar">
+                       </form>
+                
+
+                            <a href="{% url 'addCirurgia' %}"  > <img src="/media/icons/cirurgia.png" align="right" ></a>
+
+
+           			</div>
+                 </section>
+             </div>
+                 <div class="row">
+                   <section class="features-section spad">
+                     <div>
+                         <table border="2">
+                             <thead> <h3>Mapa Cirurgico</h3></thead>
+                             <tr style="background-color:#FFA07A"><th>Data</th>
+                             <th>Paciente</th>
+                             <th>Médico</th>
+                             <th>Procedimento</th>
+                             <th>Sala</th>
+                             <th>Convênio</th>
+                             <th>Cor</th>
+                             <th>Editar</th>
+                             </tr>
+                          {% for cirurgia in cirurgias %}
+
+                                <tr {% if cirurgia.cor == 'AZUL' %} style="background-color:#00BFFF;" >
+                                    {% elif cirurgia.cor == 'VERDE' %} style="background-color:#00FF7F;" >
+                                    {% elif cirurgia.cor == 'VERMELHO' %} style="background-color:#FF6A6A;" >
+                                    {% elif cirurgia.cor == 'LARANJA' %} style="background-color:#FF8C00;" >
+                                    {% else  %} style="background-color:#DCDCDC;" >{% endif %}
+
+
+                             <td>{{ cirurgia.data }}</td>
+                             <td>{{ cirurgia.paciente }}</td>
+                             <td>{{ cirurgia.medico }}</td>
+                             <td>{{ cirurgia.procedimento }}</td>
+                             <td>{{ cirurgia.sala }}</td>
+                             <td>{{ cirurgia.convenio }}</td>
+                                <td>
+                                    <form  class="checkout-form" action="{% url 'colorCC' cirurgia.id %}" method="POST">{% csrf_token %}
+                                        {{ form.as_p }}
+                       <input type="submit" style="background-color:#00946B; color: white" class="primary-btn pc-btn" class="primary-btn pc-btn" type="submit" value="Mudar">
+                       </form>
+                                </td>  <td> <a href="{% url 'editCirurgia' cirurgia.id %}"  > <img src="/media/icons/lapis.png" ></a><a href="{% url 'deleteCirurgia' cirurgia.id %}"  > <img src="/media/icons/lixo.png" ></a></td></tr>
+
+                        {% endfor %}
+                         </table>
+                     </div>
+        		</section>
+           </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<meta name="csrf_token" content="{{ csrf_token }}">
+    <div class="contact-section">
+        <div class="container">
+            <div class="row">
+    <section class="cart-total-page spad">
+        <div class="container">
+           <div> <h3>Centro de Pesquisa e Ouvidoria</h3></div>
+           <div class="row">  <section class="features-section spad">
+
+            <h4> {{ pesquisa.titulo }} </h4>
+            <h6> {{ pesquisa.descricao }} </h6>
+<div>
+{% if pesquisa.pergunta != None %} {% for pergunta in pesquisa.pergunta %} {{ pergunta }}
+ {% endfor %} {% endif %}  <div>
+
+
+         <a href=" {%  url 'novaQuestao' pesquisa.id  %} "><Button type="submit" style="background-color:#00946B; color: white" class="primary-btn pc-btn" class="primary-btn pc-btn" >
+            Adcionar Questão
+          </Button></a>
+            <Button type="submit" style="background-color:#00946B; color: white" class="primary-btn pc-btn" class="primary-btn pc-btn" >
+            Iniciar Questinario
+          </Button>
+       <Button type="submit" style="background-color:#00946B; color: white" class="primary-btn pc-btn" class="primary-btn pc-btn"  >
+            Resultados
+          </Button>
+
+
+
+        
+           </div>
+        </div>
+    </section>
+
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+   {% endblock %}

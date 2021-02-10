@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<meta charset="iso-8859-15">
+<div class="col">
+<h1>Triagem {% if triagem.atendimento == 'LIGADO' %}<a href="{% url 'triagemK' 'DESLIGADO' %}"><img src="/media/icons/ligado.png"></a> {% else %}<a href='{% url 'triagemK' 'LIGADO' %}'><img src="/media/icons/desligado.png"></a>{% endif %}</h1>
+</div>
+
+
+
+<div class="col">
+    {% if triagem.atendimento == 'LIGADO' %}
+    <a href="{%  url 'chamarTri' %}">
+        <button type="button" class="btn btn-primary">CHAMAR</button>
+    </a>
+    <a href="{%  url 'atenderTri' %}">
+        <button type="button" class="btn btn-success">ATENDER</button>
+    </a>
+    
+    <button type="button" class="btn btn-danger">PASSAR</button>
+    {% else %}
+    <h3>
+        Triagem desligada, ligue a chave acima para iniciar os atendimentos!<h3>
+            {% endif %}
+            {% if cham == 'ok' %} <H3>CHAMANDO SENHA {{ chamando }} </H3>
+
+            {% endif %}
+</div>
+
+
+                    {% endblock %}

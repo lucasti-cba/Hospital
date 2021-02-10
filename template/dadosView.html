@@ -1,0 +1,102 @@
+﻿<html>
+<head><title>{{title}}</title>
+{% load static %}</head>
+<div id="printable">
+    <body>
+        <table border="2">
+            <thead>
+                <tr>
+                    <th colspan="2"><img src="{% static "/media/logo.png" %}" alt=""></th>
+                    <th colspan="2">
+                        <h1>Formulário Técnico de Enfermagem</h1>
+                    </th>
+                </tr>
+            </thead>
+
+            <tfoot>
+                <tr>
+                    <td colspan="2">
+                        <h5>
+                            Assinatura Atendente<h5>
+
+                                _________________________<br>{{ user.nome }}
+
+
+                    </td>
+
+
+                </tr>
+
+            </tfoot>
+            <tr>
+                <td>
+                    <h2>Identificação {{ paciente.nome }} </h2>
+                </td>
+                <td>
+                    <h3>    Idade: {{ paciente.idade }} </h3> 
+                </td>
+
+                <td>
+                    <h3> Telefone: {{ paciente.telefone }}</h3> 
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <h3> Motivo da consulta: ____________________________________________________________________________</h3> 
+                </td>
+                <td>
+                    <h3> Data do Documento: </h3> {{ pacinete.dataImp }}
+                </td>
+
+                
+            </tr>
+            <tr rowspan="4"><td colspan="4" style="text-orientation: center;"> <h2>Dados do Aferidos</h2></td></tr>
+            <tr rowspan="4">
+                <td colspan="1">
+                    <h4> Sinais vitais: temperatura axilar ( ):  {{ paciente.tempAx }} </h4>
+                </td>
+                <td colspan="3">
+                    <h4>  Frequência cardíaca (FC)   {{ paciente.freqCar }}</h4>
+                </td>
+            </tr>
+            <tr>
+                </td>
+                <td colspan="4">
+                    <h4> Frequência respiratória (FR): {{ paciente.freqResp }}</h4>
+                </td>
+            </tr>
+            <tr>
+                </td>
+                <td colspan="4">
+                    <h4> Saturação de oximetria (Sat): {{ paciente.satOx }}</h4> 
+                </td>
+            </tr>
+            <tr>
+                </td>
+                <td colspan="4">
+                    <h4>Pressão arterial (PA): {{ paciente.presArt }}</h4>
+                </td>
+            </tr>
+            <tr>
+                <td>
+               <p> <h3>Anotar informações em prontuário.</h3></p>
+                <p> Observação: Caso a pessoa apresente sintomas respiratórios graves ou outro sinal e sintoma preocupante, acione imediatamente enfermeiro e/ou Médico (a). Caso contrário, mantenha a pessoa com máscara cirúrguca e direcione para o atendimento do enfermeiro(a)</p>
+                </td>
+                    </tr>
+
+        </table>
+        <button id="print">Clique para imprimir</button><a href="{% url 'triagemAtende' %}"><button >Voltar</button></a>
+    </body>
+
+<script>
+        document.getElementById('print').onclick = function() {
+            var conteudo = document.getElementById('printable').innerHTML,
+                tela_impressao = window.open('about:blank');
+
+            tela_impressao.document.write(conteudo);
+            tela_impressao.window.print();
+            tela_impressao.window.close();
+        };
+</script>
+</html>

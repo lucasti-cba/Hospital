@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="col">
+<h3>Consultório  Pronto Atendimento</h3>
+</div>
+<br><br><br><br><br><br>
+<meta name="csrf_token" content="{{ csrf_token }}">
+    <div class="contact-section">
+        <div class="container">
+            <div class="row">
+    <section class="cart-total-page spad">
+        <div class="container">
+            <form class="checkout-form" method="post">
+                {% csrf_token %}
+                <div class="row"><br><br><br>
+                    <div class="col-lg-12">
+                        <h3>Consultório</h3>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-2">
+                            <label for="id_consultorio">Consultório:</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <input type="text" name="consultorio" maxlength="100" required id="id_consultorio" placeholder="Consultório" value="">
+                            </div>
+							<input type="submit" style="background-color:#00946B; color: white" class="primary-btn pc-btn" class="primary-btn pc-btn" value="Enviar" />
+                        </div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
+			</div>
+		</div>
+	</div>
+
+
+                    {% endblock %}

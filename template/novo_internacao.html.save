@@ -1,0 +1,73 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+.container {
+width: 100vw;
+height: 100vh;
+background: None;
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+}
+.box {
+width: 300px;
+height: 400px;
+background: #191970;
+justify-content: center;
+align-items: center;
+}
+body {
+margin: 0px;
+}
+</style>
+<div class="container-fluid">
+                <div class="col-md-6">
+                        <div class="row"  style='text-align:center' >
+                                <div class="col-md-6">
+<meta name="csrf_token" content="{{ csrf_token }}">
+<div class="container">
+<div class="box"  style="filter:alpha(opacity=0); opacity:0.5" >
+            <div class="row">
+                <div class="col-lg-5">
+              <h1><b> Cadastrar Nova Internação <b></h1>
+
+
+                        <form method="post" class="checkout-form">
+                            {% csrf_token %}
+
+
+                        <div class="row">
+
+                            <div class="col-lg-6">
+                            <label for="id_paciente">Paciente:</label>
+
+                                <input type="text" name="paciente" maxlength="100" required id="id_paciente" placeholder="Paciente" value="">
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                            <label for="id_password">Senha:</label>
+
+                                <input type="password" style="-webkit-text-security:circle;" name="password" maxlength="30" required id="id_password" placeholder="Senha" value="">
+                            </div>
+                            
+                        </div>
+
+
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script>
+$(function() {
+  var id_ paciente = [ "Bola", ];
+  $("#id_paciente" ).autocomplete({
+    source: id_paciente
+  });
+});
+</script>
+{% endblock %}

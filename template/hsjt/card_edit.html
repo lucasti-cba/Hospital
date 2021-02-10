@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <section class="cart-total-page spad">
+        <div class="container">
+           <div> <h1> Editar Cardápio</h1></div><br><br><br><br><br>
+           <div class="row"> 
+                               <form action="{% url 'card_edit' %}" method="post" enctype="multipart/form-data" class="checkout-form">{% csrf_token %}
+                        {% csrf_token %}
+                        <div class="row">
+                          <div class="col-lg-4">
+                                <label for="id_title">Título:</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <input type="text" name="title" maxlength="50" required id="id_title" placeholder="Título" >
+                            </div> </div>
+                                                    <div class="row">
+                          <div class="col-lg-4">
+                                <label for="id_descricao">Descrição:</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <input type="text" name="descricao" maxlength="500" required id="id_descricao" placeholder="Descrição" >
+                            </div> </div>
+                            <div class="row"><div class="col-lg-4">                           
+                                <label for="id_data">Data:</label>
+                            </div>
+                               <div class="col-lg-8">
+                                <input type="date" name="data" maxlength="50" required id="id_data" placeholder="data" >
+                            </div></div>            
+                        	<br>
+
+                        <input type="submit" style="background-color:#00946B; color: white" class="primary-btn pc-btn" class="primary-btn pc-btn" type="submit" value="Adicionar Cardápio">
+                    	</div>
+                    </form>
+
+                    {% for cardapio in cardapios %}
+                    	<h3>{{  cardapio.title }} - {{cardapio.data}} </h3>
+                    	<h6> {{ cardapio.descricao }}</h6>
+                    	<a href="{% url 'novarefe' cardapio.id %}"><button > Adicionar alimentos</button></a>
+                    	<a href="{% url 'delete_card' cardapio.id %}"><button > Remover Cardápio</button></a>
+                    {% endfor %}
+        
+           </div>
+        </div>
+    </section>
+   {% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="Col">
+    <h3>Selecione o Guiche para iniciar o atendimento</h3>
+</div>
+<meta name="csrf_token" content="{{ csrf_token }}">
+<div class="contact-section">
+    <div class="container">
+        <div class="row">
+            <section class="cart-total-page spad">
+                <div class="container">
+                    <form action="{% url 'guiche'  %}" class="checkout-form" method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="submit" style="background-color:#00946B; color: white" class="primary-btn pc-btn" class="primary-btn pc-btn" value="Enviar">
+                    </form>
+                </div>
+                </section>
+                </div>
+        </div>
+    </div>
+
+
+
+
+                {% endblock %}

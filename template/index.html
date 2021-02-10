@@ -1,0 +1,28 @@
+﻿
+
+{% extends 'base.html' %}
+
+{% block content %}
+<section id="main">
+		<section class="thumbnails">
+						<div>
+							<spam><a href="{% url 'internacao' %}"><img src="/media/images/leito512.png" alt="" />
+							<h2>Internação Hospitalar</h2>
+						</a>
+				
+		</div><div>		
+		<a href="{% url 'boletim_find' %}"><img src="/media/images/boletim512.png" alt="" />
+							<h2>Boletim Médico</h2>
+						</a></spam>
+						</div>
+<div>		
+		<a href="{% url 'internacao' %}"><img src="/media/images/man512.png" alt="" />
+							<h2>Paciente</h2>
+						</a></spam>
+						</div>
+							
+							
+							
+    </section>
+</section>
+   {% endblock %}

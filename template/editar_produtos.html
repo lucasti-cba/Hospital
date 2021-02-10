@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<meta name="csrf_token" content="{{ csrf_token }}">
+    <div class="contact-section">
+        <div class="container">
+            <div class="row">
+    <section class="cart-total-page spad">
+        <div class="container">
+            <form action="{% url 'produto_update' produto.id  %}" class="checkout-form" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3>Editar Produto</h3>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <label for="id_nome">
+                                Produto Nome</p></label>
+                            </div>
+                            <div class="col-lg-10">
+                                <input type="text" name="nome" maxlength="100" id="id_nome" placeholder="Produto Nome" value="{{ produto.nome }}">
+                            </div>
+                        </div>
+                            <div class="row">
+                            <div class="col-lg-2">
+                            <label for="id_tipo_cont">Unidade:</label>
+                            </div>
+                            <div class="col-lg-5">
+                             <select name="tipo_cont" required id="id_tipo_cont"  value="{{ produto.tipo_cont }}">
+                                  <option value="un">Unidade</option>
+                                  <option value="mm">Milímetro</option>
+                                   <option value="cm">Centímetro</option>  
+                                   <option value="m">Metro</option> 
+                                   <option value="ml">Mililitro</option> 
+                                   <option value="l">Litro</option> 
+                                   <option value="mg">Miligrama</option> 
+                                   <option value="g">Grama</option> 
+                                   <option value="kg">Kilograma</option>                                  
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <label for="id_descricao">
+                                Descrição</p></label>
+                            </div>
+                            <div class="col-lg-10">
+                                <textarea maxlength="1000" rows="8" cols="50" required id="id_descricao" placeholder="Descrição do Produto" name="descricao" value="{{ produto.descricao }}">{{ produto.descricao }}</textarea> 
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <label for="id_codigo">Codigo</label>
+                            </div>
+                            <div class="col-lg-10">
+                                <input type="text" name="codigo" maxlength="100" id="id_codigo" placeholder="Código" value="{{ produto.codigo}}">
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <input style="background-color:green; color: white" class="primary-btn pc-btn" type="submit" value="Salvar">
+            </form>
+                               
+
+                        </div>
+
+        </div>
+
+    </section><section>
+                    <div class="col-lg-6">
+                    <div class="product-slider owl-carousel">
+                        {% for img in produto.imagens.all %}
+                        <div class="product-img">
+                            <figure>
+                                <img src= "/media/{{ img.imagens }}"alt="">
+
+                                <div class="p-status"><a href="{% url 'prodImagem_del' img.id produto.id %}">Apagar</a></div>
+
+                               
+                            </figure>
+                        </div>
+                     {% endfor %}
+                        </div>
+                        <form action="{% url 'prodImagem_add' produto.id %}" method="post" enctype="multipart/form-data" class="checkout-form">{% csrf_token %}
+                                                        <div class="col-lg-8">
+                                <input type="file" name="imagem" type="submit" style="background-color:#00946B; color: white" class="primary-btn pc-btn" class="primary-btn pc-btn"  required id="id_imagem" placeholder="Imagem" >
+                            </div>
+
+                        <br>
+                        <input type="submit" style="background-color:#00946B; color: white" class="primary-btn pc-btn" class="primary-btn pc-btn" type="submit" value="Nova Imagem">
+                        </form>
+                </div>
+              
+            </div>
+        </div>
+    </div>
+</section>
+ {% endblock %}

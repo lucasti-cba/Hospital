@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <section class="cart-total-page spad">
+        <div class="container">
+           <div> <h1> Nova Internação</h1></div>
+          	 <div class="row">
+          		 <section class="features-section spad">
+           			<div><form class="checkout-form" action="{% url 'add_internacao' %}" method="POST">
+    {% csrf_token %}
+    <tr><th><label for="id_paciente">Paciente:</label></th><td><input type="text" name="paciente" maxlength="250" required id="id_paciente"></td></tr>
+    <tr><th><label for="id_idade">Idade:</label></th><td><input type="text" name="idade" maxlength="3" required id="id_idade"></td></tr>
+    <tr><th><label for="id_convenio">Convênio:</label></th><td><input type="text" name="convenio" maxlength="30" required id="id_convenio"></td></tr>
+    <tr><th>
+    <label for="id_situacao">Situação:</label></th><td>
+        <select name="situacao" id="id_situacao">
+            <option value="CLÍNICO">CLÍNICO</option>
+            <option value="CIRÚRGICO">CIRÚRGICO</option>
+            </select></td>
+            <tr>
+                <th><label for="id_ala">Ala:</label></th>
+                <td>
+                    <select name="ala" id="id_ala">
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+
+                        <option value="16">16</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="id_leito">Leito:</label></th>
+                <td>
+                    <select name="leito" id="id_leito">
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+
+                        <option value="E">E</option>
+                    </select>
+                </td>
+            </tr>
+            <br>
+            <tr><th><label for="id_medico">Medico:</label></th><td><input type="text" name="medico" maxlength="50" required id="id_medico"></td></tr>
+            <tr><th><label for="id_dieta">Dieta:</label></th><td><input type="text" name="dieta" maxlength="30" required id="id_dieta"></td></tr>
+            <tr><th><label for="id_observacao">Observação:</label></th><td><input type="text" name="observacao" maxlength="150" required id="id_observacao"></td></tr>
+            <button type="submit" style="background-color: Transparent; border: none;"> <img src="/media/icons/internacao.png" align="right"></button>
+</form>
+           			</div>
+        		</section>
+           </div>
+        </div>
+    </section>
+{% endblock %}

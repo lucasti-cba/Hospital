@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <section class="cart-total-page spad">
+        <div class="container">
+           <div> <h1> Portal da Nutrição</h1></div>
+          	 <div class="row">
+          		 <section class="features-section spad">
+           			<div>
+           				{% for cardapio in cardapios %}
+           				<div class="col-lg-12"  style="background-color:#fdfd96">
+           					<h3>{{ cardapio.title }} <br>
+           					 {{ cardapio.data }}</h3> 
+           					 <div class="col-lg-11"   >          	         
+           					<ul >
+           					{% for alimento in cardapio.alimentos.all %}           					       		
+           						<li>
+           						<h6>{{ alimento.nome }}</h6>
+           						</li>            				       		
+           					{% endfor %}
+           					</ul>  
+           					</div> 
+           					<button type="button" class="btn btn-success">Confirmar Presença</button>    		
+      			    	</div>
+      			    	<br><br>
+           				{% endfor %}
+           			</div>
+        		</section>
+           </div>
+        </div>
+    </section>
+{% endblock %}

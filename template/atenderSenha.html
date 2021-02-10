@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="col">
+    <p><a href="{% url 'sairGuiche' %}"><img src="/media/icons/exit.png" /></a></p>
+    <p><h3>Sair</h3></p>
+    <table>
+        <thead>Lista de Senhas</thead>
+
+        <tbody><tr><th>Senha</th><th>Tipo</th><th>Chamar</th></tr>
+        {% for senha in senhas %}
+    <tr><td>
+    {{ senha.senha }}
+    </td>
+        <td>{{ senha.preferencial }}
+    </td>
+
+        <td>
+            <a href="{% url 'atenderPaciente' senha.id %}"><img src="/media/icons/play.png"></a>
+              </td>
+    </tr>
+    {% endfor %}
+</tbody>
+    </table>
+
+	</div>
+
+
+                    {% endblock %}

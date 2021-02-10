@@ -1,0 +1,66 @@
+
+
+{% block content %}
+<section class="cart-total-page spad">
+    <div class="container" id="printable">
+        <div> <h1> Painel de Internação</h1></div>
+  
+        <section class="features-section spad">
+
+            <div class="printable">
+                <table border="2">
+                    <thead> <h3>Lista de Internação</h3></thead>
+
+                    <thead> <h3>   Clínico: {{ clinico }} </h3></thead>
+                    <thead> <h3>  Cirúrgico: {{ cirurgico }}</h3></thead>
+                    <tr style="background-color:#FFA07A">
+                        <th>Leito</th>
+                        <th>Paciente</th>
+                        <th>Médico</th>
+                        <th>Situação</th>
+                        <th>Dieta</th>
+                        <th>Convênio</th>
+                        <th>Observação</th>
+
+                    </tr>
+                    {% for internado in internados %}
+
+                    <tr {% if internado.cor == 'AZUL' %} style="background-color:#00BFFF;">
+                        {% elif internado.cor == 'VERDE' %} style="background-color:#00FF7F;" >
+                        {% elif internado.cor == 'VERMELHO' %} style="background-color:#FF6A6A;" >
+                        {% elif internado.cor == 'LARANJA' %} style="background-color:#FF8C00;" >
+                        {% else  %} style="background-color:#DCDCDC;" >{% endif %}
+
+
+                        <td>{{ internado.ala }}-{{ internado.leito }}</td>
+                        <td>{{ internado.nome }}</td>
+                        <td>{{ internado.medico }}</td>
+                        <td>{{ internado.situacao }}</td>
+                        <td>{{ internado.dieta }}</td>
+                        <td>{{ internado.convenio }}</td>
+                        <td>{{ internado.observacao }}</td>
+                    </tr>
+
+                    {% endfor %}
+                </table>
+
+            </div>
+            <button id="print">Clique para imprimir</button>
+        </section>
+    </div>
+  
+</section>
+
+<script>
+        document.getElementById('print').onclick = function() {
+            var conteudo = document.getElementById('printable').innerHTML,
+                tela_impressao = window.open('about:blank');
+
+            tela_impressao.document.write(conteudo);
+            tela_impressao.window.print();
+            tela_impressao.window.close();
+        };
+</script>
+
+{% endblock %}
+

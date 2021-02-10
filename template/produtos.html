@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<section class="page-add">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8"> 
+                    <div class="page-breadcrumb">
+                        <h2><span>Meu estoque de produtos</span></h2>
+             
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </section>
+    <section class="product-page">
+ <div class="col-lg-8" style=" float: right;">    
+        <form   class="checkout-form" method="GET">
+            <div class="col-lg-1" style=" float: right;">
+<button  type="submit" id="button-addon1" style="background-color: Transparent; border: none; "> 
+    <img src="/media/icons/search.png"/>
+     </button>
+</div><div class="col-lg-4"  style=" float: right;">
+    <input type="text"  class="" placeholder="Pesquisar Produto, codigo ou descrição" name="search" id="search" />
+</div> </form></div>
+        <div class="container">
+            <div class="product-control">
+                {% if busca != none %}{{ busca }}{% if busca == '' %}Todos os produtos{% endif %}{% else %} Todos os produtos {% endif %}
+
+             </div> 
+
+{% for produto  in querry %}
+
+<script>
+function myFunction{{produto.id}}() {
+  var dots = document.getElementById("dots{{produto.id}}");
+  var moreText = document.getElementById("more{{produto.id}}");
+  var btnText = document.getElementById("myBtn{{produto.id}}");
+
+  if (dots.style.display === "none") {
+    dots.style.display = "inline";
+    btnText.innerHTML = "Saiba mais";
+    moreText.style.display = "none";
+  } else {
+    dots.style.display = "none";
+    btnText.innerHTML = "Ocultar";
+    moreText.style.display = "inline";
+  }
+}
+</script>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="product-slider owl-carousel">
+                        {% for img in produto.imagens.all %}
+                        <div class="product-img">
+                            <figure>
+                                <img src= "/media/{{ img.imagens }}"alt="">
+                                <div class="p-status">Novo</div>
+                            </figure>
+                        </div>
+                        {% endfor %}
+                    
+                        </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="product-content">
+                        <h2>{{ produto.nome }}</h2>
+
+                        <p><span id="dots{{produto.id}}"></span><span style="display:none" id="more{{produto.id}}">{{ produto.descricao }}</span><button onclick="myFunction{{produto.id}}()" style="background-color: Transparent; border: none; color: black; width: small ;" class="primary-btn pc-btn" id="myBtn{{produto.id}}">Descrição</button></p>
+                        <ul class="tags">
+                            <li><span>Quantidade em estoque :</span> {% for id in estoque %}{%if id.produto_id == produto.id %} {{ id.quantidade }} {{produto.tipo_cont}}</li>
+                            <li><span>Codigo :</span> {{ produto.codigo }}</li>
+                            
+                        </ul>
+                        <div class="container">
+                        <div class="row">
+                            <nav class="">
+                               <table>
+                                <tr><td>
+                       
+                        <form  class="checkout-form" action="{% url 'produto_add' id.id  %}" method="POST">{% csrf_token %}
+                        {{ add.quantidade }}              
+                        <button type="submit" style="background-color: Transparent; border: none;"  > <img src="/media/icons/add.png" align="right" ></button>
+                            </form>
+                        {% endif%}{% endfor %}</td>
+                        <form action="{% url 'produto_delete' produto.id %}" method="POST">
+                            {% csrf_token %}<button  onclick="return alertar()"  type="submit" style="background-color: Transparent; border: none;"  > <img src="/media/icons/delete.png" align="right" /></button>
+                        
+                        </form></td>
+                        <form action="{% url 'produto_update' produto.id %}" method="POST">
+                            {% csrf_token %}
+                        <button type="submit" style="background-color: Transparent; border: none;"  > <img src="/media/icons/edit.png" align="right"  /></button>
+                        </form></td></tr></table>
+                      
+                   </nav>
+                   </div> </div></div>
+                </div>
+            </div><br><br><br>
+            {% endfor %}
+ <!-- Produtos end querry list -->
+            <div class="product-control">
+                <a href="#">Anterior</a>
+                <a href="#">Próximo</a>
+                <a href="#">Pagina 1</a>
+            </div>
+
+        </div>
+    </section>
+    <!-- Product Page Section End -->
+
+    <!-- Related Product Section Begin -->
+
+<script>
+function alertar()
+{
+var x;
+var r=confirm("Deseja mesmo apagaro produto?");
+if (r==true)
+  {
+  x="Produto apagado";
+  }
+ else
+ {
+    return false;
+ }
+document.getElementById("demo").innerHTML=x;
+}
+
+
+</script>
+
+
+{% endblock %}

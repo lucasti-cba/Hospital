@@ -1,0 +1,65 @@
+﻿{% extends 'base.html' %}
+
+{% block content %}
+    <section class="cart-total-page spad">
+        <div class="container">
+           <div> <h1> {{ inter.ala }} - {{ inter.leito }}</h1></div>
+          	 <div class="row">
+          		 <section class="features-section spad">
+           			<div><form class="checkout-form" action="{% url 'edit_internacao' inter.id %}" method="POST">
+    {% csrf_token %}
+    <tr><th><label for="id_paciente">Paciente:</label></th><td><input type="text" name="paciente" maxlength="250" value="{{ inter.nome }}" required id="id_paciente"></td></tr>
+    <tr><th><label for="id_idade">Idade:</label></th><td><input type="text" name="idade" maxlength="3" required value="{{ inter.idade }}" id="id_idade"></td></tr>
+    <tr><th><label for="id_convenio">Convênio:</label></th><td><input type="text" name="convenio" maxlength="30" required value="{{ inter.convenio }}" id="id_convenio"></td></tr>
+    <label for="id_situacao"   >
+        <select name="situacao" id="id_situacao">
+            <option value="CLÍNICO" {% if inter.situacao == 'CLÍNICO' %} selected="selected" {% endif %}>CLÍNICO</option>
+            <option value="CIRÚRGICO" {% if inter.situacao == 'CIRÚRGICO' %} selected="selected" {% endif %}>CIRÚRGICO</option>
+        </select>
+    </td>
+    <tr>
+        <th><label for="id_ala">Ala:</label></th>
+        <td>
+            <select name="ala" id="id_ala" value="{{ inter.ala }}">
+                <option value="01" {% if inter.ala == '01' %} selected="selected" {% endif %}>01</option>
+                <option value="02" {% if inter.ala == '02' %} selected="selected" {% endif %}>02</option>
+                <option value="03" {% if inter.ala == '03' %} selected="selected" {% endif %}>03</option>
+                <option value="04" {% if inter.ala == '04' %} selected="selected" {% endif %}>04</option>
+                <option value="05" {% if inter.ala == '05' %} selected="selected" {% endif %}>05</option>
+                <option value="06" {% if inter.ala == '06' %} selected="selected" {% endif %}>06</option>
+                <option value="07" {% if inter.ala == '07' %} selected="selected" {% endif %}>07</option>
+                <option value="08" {% if inter.ala == '08' %} selected="selected" {% endif %}>08</option>
+                <option value="09" {% if inter.ala == '09' %} selected="selected" {% endif %}>09</option>
+                <option value="10" {% if inter.ala == '10' %} selected="selected" {% endif %}>10</option>
+                <option value="11" {% if inter.ala == '11' %} selected="selected" {% endif %}>11</option>
+                <option value="12" {% if inter.ala == '12' %} selected="selected" {% endif %}>12</option>
+                <option value="13" {% if inter.ala == '13' %} selected="selected" {% endif %}>13</option>
+                <option value="14" {% if inter.ala == '14' %} selected="selected" {% endif %}>14</option>
+                <option value="15" {% if inter.ala == '15' %} selected="selected" {% endif %}>15</option>
+                <option value="16" {% if inter.ala == '16' %} selected="selected" {% endif %}>16</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <th><label for="id_leito">Leito:</label></th>
+        <td>
+            <select name="leito" id="id_leito" value="{{ inter.leito }}">
+                <option value="A" {% if inter.leito == 'A' %} selected="selected" {% endif %}>A</option>
+                <option value="B" {% if inter.leito == 'B' %} selected="selected" {% endif %}>B</option>
+                <option value="C" {% if inter.leito == 'C' %} selected="selected" {% endif %}>C</option>
+                <option value="D" {% if inter.leito == 'D' %} selected="selected" {% endif %}>D</option>
+                <option value="E" {% if inter.leito == 'E' %} selected="selected" {% endif %}>E</option>
+            </select>
+        </td>
+    </tr><br>
+    <tr><th><label for="id_medico">Medico:</label></th><td><input type="text" name="medico" maxlength="50" required id="id_medico" value="{{ inter.medico }}"></td></tr>
+    <tr><th><label for="id_dieta">Dieta:</label></th><td><input type="text" name="dieta" maxlength="30" required id="id_dieta" value="{{ inter.dieta }}"></td></tr>
+    <tr><th><label for="id_observacao">Observação:</label></th><td><input type="text" name="observacao" maxlength="150" required id="id_observacao" value="{{ inter.observacao }}"></td></tr>
+    <button type="submit" style="background-color: Transparent; border: none;"> <img src="/media/icons/internacao.png" align="right"></button>
+</form>
+           			</div>
+        		</section>
+           </div>
+        </div>
+    </section>
+{% endblock %}

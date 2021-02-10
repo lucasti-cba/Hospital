@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="col">
+<h1>{{ senha.senha }} -- {{ senha.guiche }} </h1>
+</div>
+
+<div class="col">
+    <a href="{%  url 'atenderPA' senha.id %}">
+        <button type="button" class="btn btn-success">ATENDER</button>
+    </a>
+
+    <a href="{%  url 'cancelarPA' senha.id %}">
+        <button type="button" class="btn btn-danger">PASSAR</button>
+        </a>
+        <table>
+            <thead>
+                <h3>Encaminha para consulta</h3>
+            </thead>
+            <tbody>
+
+                {% for consultorioPa in consultorio %}
+                <tr>
+                    <a href="{% url 'encaminharConsulta' paciente.id %}"><h4>Consultório: {{ consultorioPa.consultorio }} <img src="/media/icons/consulta.png"></h4><a>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+        {% endblock %}

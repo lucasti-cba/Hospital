@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<meta name="csrf_token" content="{{ csrf_token }}">
+    <div class="contact-section">
+        <div class="container">
+            <div class="row">
+    <section class="cart-total-page spad">
+        <div class="container">
+           <div> <h3>Centro de Pesquisa e Ouvidoria</h3></div>
+           <div class="row">  <section class="features-section spad">
+
+           	    <form action="{% url 'novaPesquisa'  %}" class="checkout-form" method="post">
+                {% csrf_token %}
+           	<div class="col-lg-12">{{ form.as_p }}</div>
+           	<input type="submit" style="background-color:#00946B; color: white" class="primary-btn pc-btn" class="primary-btn pc-btn" value="Enviar" >
+           </form>
+        
+           </div>
+        </div>
+    </section>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+   {% endblock %}

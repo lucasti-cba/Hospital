@@ -1,0 +1,216 @@
+﻿<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    {% load static %}
+    <meta charset="iso-8859-2">
+    <meta name="description" content="Yoga Studio Template">
+    <meta name="keywords" content="Yoga, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+    <link rel="sortcut icon" href="{% static "img/favicon.ico" %}" type="image/x-icon" />
+    <title> {{ title }} </title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900&display=swap"
+        rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}" type="text/css">
+    <link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}" type="text/css">
+    <link rel="stylesheet" href="{% static "css/nice-select.css" %}" type="text/css">
+    <link rel="stylesheet" href="{% static "css/owl.carousel.min.css" %}" type="text/css">
+    <link rel="stylesheet" href="{% static "css/magnific-popup.css" %}" type="text/css">
+    <link rel="stylesheet" href="{% static "css/slicknav.min.css" %}" type="text/css">
+    <link rel="stylesheet" href="{% static "css/style.css" %}" type="text/css">
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+	<!-- Search model end -->
+
+    <!-- Header Section Begin -->
+    <header class="header-section">
+        <div class="container-fluid">
+            <div class="inner-header">
+                <div class="logo">
+                    <a href="{% url "index" %}"><img src="{% static "/media/logo.png" %}" alt=""></a>
+                </div>
+                {% if user.is_authenticated %}
+                <div class="header-right">
+                    <a href="{% url 'notifications' %}"><img src="{% static "img/icons/man.png" %}" alt="">
+                    <span>{{ qnt_not }}</span>
+                    </a>
+                    <!-- <a href="#">
+                        <img src="{% static "img/icons/bag.png" %}" alt="">
+                        <span>2</span>
+                    </a>  -->
+
+                </div>
+                {% endif %}
+                <div class="user-access">
+                    {% if not user.is_authenticated %}
+                    <a href="{% url 'cadastrar_usuario' %}">Registrar</a>
+                    <a href="{% url 'logar_usuario' %}" class="in">Entrar</a>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                     <a href="{% url 'dadospessoais' %}">{{ user.get_username }}</a>
+                    <a href="{% url 'logout' %}" class="in">Sair</a>
+                    {% endif %}
+                </div>
+{% if user.is_authenticated %}
+                <nav class="main-menu mobile-menu">
+                    <ul>     
+
+                        <li><a class="" href=""><img src="/media/icons/fila.png">      </a>
+                            <ul class="sub-menu">
+                                <li> <a href="{% url 'pegarSenha' %}">Gerar Senha</a></li>
+                                <li> <a href="{% url 'triagemAtende' %}">Triagem</a></li>
+                                <li> <a href="{% url 'guiche' %}">Recepção</a></li>
+                                <li> <a href="{% url 'painelcc' %}">Pronto Atendimento</a></li>
+
+                            </ul>
+                        </li>
+
+                        <li><a class="" href=""><img src="/media/icons/enf.png">        </a>
+                            <ul class="sub-menu">
+                                <li> <a href="{% url 'painelcc' %}">Centro Cirurgico</a></li>
+                                <li> <a href="{% url 'internacao' %}">Painel Internação</a></li>
+                            </ul>
+                        </li>
+
+
+                        <li><a class="" href=""><img src="/media/icons/compra.png">        </a>
+                            <ul class="sub-menu">
+
+                            </ul>
+                        </li>
+
+
+
+                        <li><a class="" href="{% url 'ordemManu_cro' %}"><img src="/media/icons/manun.png">        </a>
+                            <ul class="sub-menu">
+                                <li><a href="{% url 'gerar_ordemManu' %}">Solicitar Ordem de Serviço</a></li>
+                               {% if perms.app.change_ordem_manu_predial or perms.app.change_ordem_manu_arc or perms.app.change_ordem_manu_terceiri %}  <li><a href="{% url 'ordemManu_a' %}">Ordens em Aberto</a></li>{% endif %}                               
+                                <li><a href="{% url 'ordemManu_f' %}">Ordens Concluidas</a></li>  
+                            </ul>
+                        </li>
+
+
+
+                        <li><a class=""  href="{% url 'ordemti_cro' %}"><img src="/media/icons/ti.png">                                            </a>
+                          <ul class="sub-menu">
+                                <li><a href="{% url 'gerar_ordemti' %}">Solicitar Ordem de Serviço</a></li>
+                                <li><a href="{% url 'cadastro_infohosp' %}">Solicitar Cadastro INFOHOSP</a></li>
+                                 {% if perms.app.change_ordem_ti %}
+                                  <li><a href="{% url 'ordemti_a' %}">Ordens em Aberto</a></li>
+                                 <li><a href="{% url 'produtos' 'Ti' %}">Estoque</a></li>
+                                  <li><a href="{% url 'cadastrarProdutos' %}">Novo Produto</a></li>
+                                 <li><a href="{% url 'cadastro_infohosp' %}">Saidas</a></li>
+                               {% endif %}
+                                <li><a href="{% url 'ordemti_f' %}">Ordens Concluidas</a></li>                        
+                            </ul>
+                        </li>               
+                    </ul>
+                </nav>
+                {% endif %}
+             </div>
+        </div>
+        <br>
+    </header>
+    <!-- Header Info Begin -->
+    <div class="header-info">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="header-item">
+                        <img src="" alt="">
+                        <p> {{ mensagem1 }}</p>
+                    </div>
+                </div>
+                <div class="col-md-4 text-left text-lg-center">
+                    <div class="header-item">
+                        <img src="" alt="">
+                        <p> {{ mensagem2 }}</p>
+                    </div>
+                </div>
+                <div class="col-md-4 text-left text-xl-right">
+                    <div class="header-item">
+                    <img src="" alt="">
+                    <p>  {{ mensagem3 }}  </p>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header Info End -->
+    <!-- Header End -->
+    {% block content %}
+    {% endblock %}
+    <!-- Features Section End -->
+
+    <!-- Latest Product Begin -->
+
+    <!-- Latest Product End -->
+
+    <!-- Lookbok Section Begin -->
+
+    </section>
+    <!-- Lookbok Section End -->
+
+    <!-- Logo Section Begin -->
+
+
+    <!-- Footer Section Begin -->
+<footer class="footer-section spad">
+
+
+
+<div class="container text-center pt-5">
+
+                <div class="footer-widget">
+                <div class="row">
+                    <div class="col-lg-12 col-sm-6">
+                        <div class="single-footer-widget">
+                            <h4>Sobre nós</h4>
+                            <ul>
+                                <li>Lucas de Araujo Batista</li>
+                                <li>Desenvolvedor de Sistema WEB</li>
+                                <li>Contato:</li>
+                                  <li>(65) 9 9357 6593</li>
+                                <li>Lucasti-cba@outlook.com</li>
+                                                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+                <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+            </div>
+
+
+		</div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Js Plugins -->
+    <script src="{% static "js/jquery-3.3.1.min.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script src="{% static "js/jquery.magnific-popup.min.js" %}"></script>
+    <script src="{% static "js/jquery.slicknav.js" %}"></script>
+    <script src="{% static "js/owl.carousel.min.js" %}"></script>
+    <script src="{% static "js/jquery.nice-select.min.js" %}"></script>
+    <script src="{% static "js/mixitup.min.js" %}"></script>
+    <script src="{% static "js/main.js" %}"></script>
+</body>
+
+</html>
